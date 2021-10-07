@@ -1,38 +1,58 @@
-import { IApiData } from "../IApiData/IApiData";
+import { IApiData, IRow } from "../IApiData/IApiData";
 import { Link } from "react-router-dom";
 
 const API_ROOT = "http://127.0.0.1:8000";
 const END_POINT = "/api/retrieve_reports";
 
-  const rows = [
-      { id: 1, name: 'Abby McGrath', email: 'martinvaughn@gmail.com', phone: "480-567-5694", status: "Interested", notes: "She's super cool and fun and funny and really cute too."},
-      { id: 2, 
-        name: 'Martin Vaughn', 
-        email: 'martinvaughn@gmail.com',
-         phone: "480-566-5679", 
-         status: "Dropped", 
-         notes: "He's just been vibing for a while. Not sure if he's actually interested or what. But he would like us to follow up sometime in the future if we get a chance. "}
-    ];
+const THIRD_PARTY_URL = "https://randommer.io/api/Name?nameType=fullname&quantity=200";
+const TOKEN = "ccbf82b05c494db9ace925cf81486f91";
 
 
 const apiWrapper = (setApiData: Function, setResolved: Function) => {
-    setApiData({rows: rows});
-    setResolved(true);
+    let count = 0;
+    callApi();
+    console.log("API called :-) ");
+    // setApiData({rows: rows});
+    // setResolved(true);
 
     async function callApi() {   
-        // Fills the apiData state.
-        await fetch(API_ROOT + END_POINT)
+        await fetch(THIRD_PARTY_URL, {
+            method: "GET",
+            headers: {
+              "X-Api-Key": TOKEN
+            }
+          })
         .then(response => response.json())
         .then(data => {
-            // Map status to a word.
+            console.log("data created");
+            console.log(data);
+            let newData = data.map((i: string) => {
+                count++;
+                return {
+                    name: i,
+                    id: count,
+                    email: "dummy-email@gmail.com",
+                    phone: "480-678-3849",
+                    status: "Interested",
+                    notes: "They would like to get more information about our services." +
+                    " However he won't be available till early June. Give them a call in the summer"
+                }
+            });
+            setApiData({rows: newData});
             setResolved(true);
-            setApiData(data.data);
+            // console.log("New data mapped: ", )
+            // newData.map((row: IRow)=> {
+            //     row.id = count;
+            //     count++;
+            //     row.email = "dummy-email@gmail.com";
+            //     row.phone = "480-678-3849";
+            //     row.status = "Interested";
+            //     row.notes = "They would like to get more information about our services." +
+            //     " However he won't be available till early June. Give them a call in the summer";
+            // })
+            
         }).catch(e => {console.log("Error calling API: ", e)});
       }
-
-    return (
-        {rows: rows}
-    );
 }
 
 export default apiWrapper;

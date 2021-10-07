@@ -20,7 +20,9 @@ const Main:FC<MainProps> = (props: any) => {
     console.log("Data updated in Main: ", props.rows);
     return(
         <div style={{paddingBottom: "30px"}}>
-          <Typography style={{textAlign: "center", margin: "70px auto"}} variant="h2" gutterBottom>LeadEasy Dashboard</Typography>
+          <Typography style={{textAlign: "center", margin: "70px auto"}} variant="h2" gutterBottom>
+              LeadEasy Dashboard
+          </Typography>
           { props.rows ? <LeadGrid setRows={props.setRows} rows={props.rows}/> : <h2>No Data Found</h2> }
         </div>
     );

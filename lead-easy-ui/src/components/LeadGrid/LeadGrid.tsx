@@ -9,7 +9,7 @@ import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { FC, useCallback } from 'react';
 import { useHistory } from "react-router-dom";
-import { IApiData } from '../IApiData/IApiData';
+import { IApiData, IRow } from '../IApiData/IApiData';
 import { Button } from "@mui/material";
 // import SelectStatus from "../SelectStatus/SelectStatus";
 
@@ -27,14 +27,14 @@ interface IPrevRows extends Array<[]> {
   rows: [];
 }
 
-interface IRow {
-  id: number; 
-  name: string; 
-  email: string; 
-  phone: string; 
-  status: string; 
-  details: string;
-}
+// interface IRow {
+//   id: number; 
+//   name: string; 
+//   email: string; 
+//   phone: string; 
+//   status: string; 
+//   details: string;
+// }
 
 
 const LeadGrid:FC<IApiData> = (props: any) => {
