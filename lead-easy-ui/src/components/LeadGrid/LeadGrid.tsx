@@ -10,7 +10,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { FC, useCallback } from 'react';
 import { useHistory } from "react-router-dom";
 import { IApiData } from '../IApiData/IApiData';
-import Button from "@material-ui/core/Button";
+import { Button } from "@mui/material";
 // import SelectStatus from "../SelectStatus/SelectStatus";
 
 interface IParams {
@@ -110,13 +110,11 @@ const LeadGrid:FC<IApiData> = (props: any) => {
         state: { row: params.row}
       }
       history.push(location);
-      console.log(params);
     }
     
     return(
         <>
-            <h5>Lead Grid</h5>
-            <div style={{ height: 400, width: '95%', textAlign: "center", padding: "10px"}}>
+            <div style={{ height: 400, width: '95%', padding: "10px", margin: "auto"}}>
               <div style={{ display: 'flex', height: '100%' }}>
                 <div style={{ flexGrow: 1 }}>
                   <DataGrid 
@@ -125,7 +123,7 @@ const LeadGrid:FC<IApiData> = (props: any) => {
                     onCellClick={selected}
                     disableSelectionOnClick
                     components={{
-                      Toolbar: GridToolbar, //wyatt added
+                      Toolbar: GridToolbar,
                     }}
                   />
                 </div>

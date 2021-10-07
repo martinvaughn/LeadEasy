@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import LeadGrid from "../LeadGrid/LeadGrid";
+import { Typography } from "@mui/material";
 
 interface MainProps {
     rows: { 
@@ -18,10 +19,10 @@ interface MainProps {
 const Main:FC<MainProps> = (props: any) => {
     console.log("Data updated in Main: ", props.rows);
     return(
-        <>
-        <h1>LeadEasy</h1>
-        { props.rows ? <LeadGrid setRows={props.setRows} rows={props.rows}/> : null }
-        </>
+        <div style={{paddingBottom: "30px"}}>
+          <Typography style={{textAlign: "center", margin: "70px auto"}} variant="h2" gutterBottom>LeadEasy Dashboard</Typography>
+          { props.rows ? <LeadGrid setRows={props.setRows} rows={props.rows}/> : <h2>No Data Found</h2> }
+        </div>
     );
 }
 

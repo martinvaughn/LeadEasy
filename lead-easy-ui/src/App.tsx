@@ -6,6 +6,7 @@ import Footer from './components/Footer/Footer';
 import LeadDetails from './components/LeadDetails/LeadDetails';
 import { IApiData } from './components/IApiData/IApiData';
 import apiWrapper from './components/ApiWrapper/ApiWrapper';
+import ProgressCircular from './components/ProgressCircular/Progress';
 import './App.css';
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
     <Header />
     <Switch>
       <Route path='/' exact>
-        {resolved ? <Main setRows={setApiData} rows={apiData ? apiData.rows : null}/> : null}
+        {resolved ? <Main setRows={setApiData} rows={apiData ? apiData.rows : null}/> : ProgressCircular}
       </Route>
       <Route path='/lead/:id' component={LeadDetails}/>
       {/*<Route component={Error} />*/}

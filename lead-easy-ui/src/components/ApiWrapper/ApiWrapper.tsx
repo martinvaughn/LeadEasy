@@ -5,13 +5,13 @@ const API_ROOT = "http://127.0.0.1:8000";
 const END_POINT = "/api/retrieve_reports";
 
   const rows = [
-      { id: 1, name: 'Bro', email: 'm@gmail.com', phone: "480-56", status: "Yes", notes: "Mm."},
+      { id: 1, name: 'Abby McGrath', email: 'martinvaughn@gmail.com', phone: "480-567-5694", status: "Interested", notes: "She's super cool and fun and funny and really cute too."},
       { id: 2, 
-        name: 'YeehAw', 
-        email: 'ma@gmail.com',
-         phone: "480-56", 
-         status: "Stop", 
-         notes: "Mm"}
+        name: 'Martin Vaughn', 
+        email: 'martinvaughn@gmail.com',
+         phone: "480-566-5679", 
+         status: "Dropped", 
+         notes: "He's just been vibing for a while. Not sure if he's actually interested or what. But he would like us to follow up sometime in the future if we get a chance. "}
     ];
 
 
