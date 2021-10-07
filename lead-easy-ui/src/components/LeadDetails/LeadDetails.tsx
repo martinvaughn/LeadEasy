@@ -27,7 +27,7 @@ interface LeadDetailsProps {
 
 const LeadDetails:FC<LeadDetailsProps> = (props) => {
     const history = useHistory();
-    const row = props.location.state.row;
+    const row = props.location.state.row; // Retrieve row from Link.
 
     return(
         <div style={{backgroundColor: "#EAEEF3", padding: "80px"}}>
@@ -60,19 +60,19 @@ const LeadDetails:FC<LeadDetailsProps> = (props) => {
               size="large"
               >
               Phone: {row.phone ? row.phone: "No Number"}
-             </Button>
+              </Button>
               <Button onClick={() => {}}
               variant="outlined"
               style={{display: "block", marginTop: "30px"}} 
               size="large"
               >
-                Email: {row.email ? row.email: "No Email"}
+              Email: {row.email ? row.email: "No Email"}
               </Button>
               <Button onClick={() => history.goBack()} 
               variant="contained" 
               style={{display: "block", marginTop: "30px", marginBottom: "20px"}} 
               size="medium">
-                  Back to Leads
+              Back to Leads
               </Button>
             </CardActions>
           </Card>

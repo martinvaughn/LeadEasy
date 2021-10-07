@@ -1,7 +1,8 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
-export default () => {
+const Footer:FC = () => {
     return (
         <div id="my-footer">
             <Link to="/">Leads </Link>
@@ -10,3 +11,5 @@ export default () => {
         </div>
     )
 }
+
+export default Footer;

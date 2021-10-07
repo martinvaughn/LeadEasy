@@ -21,6 +21,7 @@ const Main:FC<MainProps> = (props) => {
     const [ checked, setChecked ] = useState(props.thirdParty);
 
     const handleChange = () => {
+        // Toggles the checked and thirdParty states.
         props.setThirdParty((prevState: boolean) => {
             setChecked(!prevState);
             return !prevState;

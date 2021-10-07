@@ -11,7 +11,6 @@ import { FC, useCallback } from 'react';
 import { useHistory } from "react-router-dom";
 import { IApiData, IRow, IPrevRows } from '../IApiData/IApiData';
 import { Button } from "@mui/material";
-// import SelectStatus from "../SelectStatus/SelectStatus";
 
 interface IParams {
   colDef: {
@@ -23,9 +22,7 @@ interface IParams {
   };
 }
 
-
-
-const LeadGrid:FC<IApiData> = (props: any) => {
+const LeadGrid:FC<IApiData> = (props) => {
     const history = useHistory();
 
     const columns: any = [
@@ -74,17 +71,17 @@ const LeadGrid:FC<IApiData> = (props: any) => {
     ];
 
     const setStatus = useCallback(
-    (params: IParams, status: string) => () => {
-      props.setRows((prevRows: IPrevRows) => {  
-        const newRows = prevRows.rows.map((row: IRow) => {
-          if (row.id === params.row.id) {
-            row.status = status;
-            return row;
-          } 
-          return row; 
+      (params: IParams, status: string) => () => {
+        props.setRows((prevRows: IPrevRows) => {  
+          const newRows = prevRows.rows.map((row: IRow) => {
+            if (row.id === params.row.id) {
+              row.status = status;
+              return row;
+            } 
+            return row; 
+          });
+          return { rows: newRows };
         });
-        return { rows: newRows };
-      });
     },[],);
     
 

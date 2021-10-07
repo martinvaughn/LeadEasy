@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { FC } from 'react'
+import { Link } from 'react-router-dom';
 import './Header.css';
 
-function Header() {
+const Header:FC = () => {
     return (
     <div id="my-header">
         <Link to="/">Leads </Link>
@@ -10,4 +11,4 @@ function Header() {
     </div>)
 }
 
-export default Header
+export default Header;
