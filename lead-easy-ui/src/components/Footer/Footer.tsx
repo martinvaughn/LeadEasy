@@ -1,11 +1,12 @@
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 export default () => {
     return (
-        <div style={{marginTop: 100}}id="my-footer">
-            <a href="./">Home</a>
-            <a href="./upload">Upload</a>
-            <a href="#">Support</a>
+        <div id="my-footer">
+            <Link to="/">Leads </Link>
+            <a href="/#">Log Out</a>
+            <a href="/#">Support</a>
         </div>
     )
 }

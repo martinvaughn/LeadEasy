@@ -5,13 +5,13 @@ const API_ROOT = "http://127.0.0.1:8000";
 const END_POINT = "/api/retrieve_reports";
 
   const rows = [
-      { id: 1, name: 'Bro', email: 'm@gmail.com', phone: "480-56", status: "Yes", details:"He extra."},
+      { id: 1, name: 'Bro', email: 'm@gmail.com', phone: "480-56", status: "Yes", notes: "Mm."},
       { id: 2, 
         name: 'YeehAw', 
         email: 'ma@gmail.com',
          phone: "480-56", 
          status: "Stop", 
-         details: <Link to={{ pathname: "/lead/1", state: { name: "yee", email: "m@g.com", id: 1 }}}> Link Up</Link>}
+         notes: "Mm"}
     ];
 
 

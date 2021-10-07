@@ -1,45 +1,55 @@
 import { 
     DataGrid, 
-    GridCellValue,
-    GridApi,
     GridCellParams,
     GridActionsCellItem,
-    GridRowId,
-    GridColDef
+    GridToolbar
 } from "@mui/x-data-grid";
-
-// import {
-//   DataGrid,
-//   GridColDef,
-//   GridApi,
-//   GridCellValue,
-//   GridCellParams
-// } from "@material-ui/data-grid";
-
-import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
-import { FC, useCallback, useState } from 'react';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { FC, useCallback } from 'react';
 import { useHistory } from "react-router-dom";
 import { IApiData } from '../IApiData/IApiData';
 import Button from "@material-ui/core/Button";
-import SelectStatus from "../SelectStatus/SelectStatus";
+// import SelectStatus from "../SelectStatus/SelectStatus";
+
+interface IParams {
+  colDef: {
+    field: string;
+  }
+  row: {
+    id: number;
+    status: string;
+  };
+}
+
+interface IPrevRows extends Array<[]> {
+  rows: [];
+}
+
+interface IRow {
+  id: number; 
+  name: string; 
+  email: string; 
+  phone: string; 
+  status: string; 
+  details: string;
+}
 
 
-const LeadGrid:FC<IApiData> = (props) => {
+const LeadGrid:FC<IApiData> = (props: any) => {
     const history = useHistory();
-    const rowVals = props.rows;
-    const { rows, setRows } = useState([]);
-    setRows(rowVals);
 
     const columns: any = [
-      { field: 'name', headerName: 'Name', width: 155, editable: false}, 
-      { field: 'email', headerName: 'Email', width: 155, editable: false},
-      { field: 'phone', headerName: 'Phone', width: 155, editable: false},
-      { field: 'status', headerName: 'Status', width: 155, editable: false},
+      { field: 'name', headerName: 'Name', flex: .2, editable: false}, 
+      { field: 'email', headerName: 'Email', width: 150, editable: false, hide: true},
+      { field: 'phone', headerName: 'Phone', flex: .2, editable: false},
+      { field: 'status', headerName: 'Status', flex: .2, editable: false},
       {
         field: "details",
         headerName: "Details",
-        width: 180,
-        // disableClickEventBubbling: true,
+        flex: .1,
+        disableClickEventBubbling: true,
         renderCell: () => {
           return (
             <Button variant="contained" color="primary">
@@ -48,67 +58,78 @@ const LeadGrid:FC<IApiData> = (props) => {
           );
       }},
       {
-        field: 'Change Status',
+        field: 'actions',
         type: 'actions',
-          getActions: (params: any) => [
+        width: 35,
+        getActions: (params: IParams) => [
             <GridActionsCellItem
-              icon={<AssignmentTurnedInIcon />}
-              label="Change Status"
-              
+              icon={<RadioButtonUncheckedIcon />}
+              label="Set Lead Interested"
+              onClick={setStatus(params, "Interested")}
+              showInMenu
+            />,
+            <GridActionsCellItem
+              icon={<CheckCircleOutlineIcon />}
+              label="Set Lead Closed"
+              onClick={setStatus(params, "Closed")}
+              showInMenu
+            />,
+            <GridActionsCellItem
+              icon={<HighlightOffIcon />}
+              label="Set Lead Dropped"
+              onClick={setStatus(params, "Dropped")}
+              showInMenu
             />,
         ]
       },
       { field: 'notes', headerName: 'Notes', width: 0, editable: false, hide: true},
     ];
 
-    const changeStatus = useCallback(
-    (id: GridRowId) => () => {
-      setRows((prevRows) => {
-        const rowToDuplicate = prevRows.find((row) => row.id === id)!;
-        const newRows = [...prevRows, { ...rowToDuplicate, id: Date.now() }];
-        console.log(newRows);
-        return newRows;
+    const setStatus = useCallback(
+    (params: IParams, status: string) => () => {
+      props.setRows((prevRows: IPrevRows) => {  
+        const newRows = prevRows.rows.map((row: IRow) => {
+          if (row.id === params.row.id) {
+            row.status = status;
+            return row;
+          } 
+          return row; 
+        });
+        return { rows: newRows };
       });
-    },
-    [],
-    );
-
-    function selected(params: GridCellParams) {
-        const value = params.colDef.field;
-        
-        if (!(value === "details")) { 
-          return;
-        }
-        const fields = apiRef.current.getAllColumns().map((c) => c.field)
-          .filter((c) => c !== "__check__" && !!c);
-
-        const row: Record<string, GridCellValue> = {};
+    },[],);
     
-        fields.forEach((f: string) => {
-          row[f] = params.getValue(params.id, f);
-        }); 
-        
-        const location = {
-            pathname: "/lead/1",
-            state: { row: row}
-          }
-        history.push(location);
+
+    const selected = (params: GridCellParams) => {
+      const value = params.colDef.field;
+      if (!(value === "details")) { 
+        return;
       }
+      const location = {
+        pathname: "/lead/" + params.row.id,
+        state: { row: params.row}
+      }
+      history.push(location);
+      console.log(params);
+    }
+    
     return(
         <>
             <h5>Lead Grid</h5>
             <div style={{ height: 400, width: '95%', textAlign: "center", padding: "10px"}}>
-            <div style={{ display: 'flex', height: '100%' }}>
-            <div style={{ flexGrow: 1 }}>
-                <DataGrid 
-                columns={columns2}
-                rows={props.rows}
-                onCellClick={selected}
-                checkboxSelection
-                disableSelectionOnClick
-                />
-            </div>
-            </div>
+              <div style={{ display: 'flex', height: '100%' }}>
+                <div style={{ flexGrow: 1 }}>
+                  <DataGrid 
+                    columns={columns}
+                    rows={props.rows}
+                    onCellClick={selected}
+                    disableSelectionOnClick
+                    components={{
+                      Toolbar: GridToolbar, //wyatt added
+                    }}
+                  />
+                </div>
+              </div>
             </div>
         </>
     );

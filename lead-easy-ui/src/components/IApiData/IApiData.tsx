@@ -6,4 +6,5 @@ export interface IApiData {
         phone: string; 
         status: string; 
         details: string; }[];
+    setRows: any;
 }

@@ -11,15 +11,16 @@ interface MainProps {
         status: string; 
         details: string; }[] 
         | null;
-
+    
+    setRows: any; 
 }
 
-const Main:FC<MainProps> = (props) => {
+const Main:FC<MainProps> = (props: any) => {
+    console.log("Data updated in Main: ", props.rows);
     return(
         <>
         <h1>LeadEasy</h1>
-        { props.rows ? <LeadGrid rows={props.rows}/> : null }
-        <Link to={{ pathname: "/lead/1", state: { rows: props.rows, id: 1 }}}> Link Up</Link>
+        { props.rows ? <LeadGrid setRows={props.setRows} rows={props.rows}/> : null }
         </>
     );
 }

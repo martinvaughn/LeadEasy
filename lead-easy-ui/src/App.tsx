@@ -23,7 +23,7 @@ function App() {
     <Header />
     <Switch>
       <Route path='/' exact>
-        {resolved ? <Main rows={apiData ? apiData.rows : null}/> : null}
+        {resolved ? <Main setRows={setApiData} rows={apiData ? apiData.rows : null}/> : null}
       </Route>
       <Route path='/lead/:id' component={LeadDetails}/>
       {/*<Route component={Error} />*/}
