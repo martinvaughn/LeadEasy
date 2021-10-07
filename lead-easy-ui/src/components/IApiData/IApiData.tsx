@@ -1,11 +1,5 @@
 export interface IApiData {
-    rows: { 
-        id: number; 
-        name: string; 
-        email: string; 
-        phone: string; 
-        status: string; 
-        details: string; }[];
+    rows: IRow[];
     setRows: any;
 }
 
@@ -17,3 +11,7 @@ export interface IRow {
     status: string; 
     notes: string;
   }
+
+export interface IPrevRows extends Array<[]> {
+    rows: [];
+}
