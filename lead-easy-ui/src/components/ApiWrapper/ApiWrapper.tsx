@@ -1,5 +1,6 @@
-// const API_ROOT = "http://127.0.0.1:8000";
-// const END_POINT = "/api/Leads";
+// const API_ROOT = "https://localhost:44366/";
+// const END_POINT = "/api/leads";
+
 
 const THIRD_PARTY_URL = "https://randommer.io/api/Name?nameType=fullname&quantity=20";
 const TOKEN = "ccbf82b05c494db9ace925cf81486f91";
@@ -9,7 +10,7 @@ const apiWrapper = (setApiData: Function, setResolved: Function, thirdParty: boo
     if (thirdParty) {
         callThirdPartyApi();
     } else {
-        callLocalApi();
+        callLocalApi(); // If I were to get my SQL Server connection up & running, then this would make a call there.
     }
 
     async function callLocalApi() {
